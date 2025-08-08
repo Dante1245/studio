@@ -39,6 +39,46 @@ export const assets = [
     price: 0.52,
     change24h: -2.1,
   },
+  {
+    name: 'Dogecoin',
+    ticker: 'DOGE',
+    icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/doge.svg',
+    balance: 0,
+    price: 0.15,
+    change24h: 5.5,
+  },
+  {
+    name: 'Cardano',
+    ticker: 'ADA',
+    icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/ada.svg',
+    balance: 0,
+    price: 0.45,
+    change24h: -1.2,
+  },
+  {
+    name: 'Avalanche',
+    ticker: 'AVAX',
+    icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/avax.svg',
+    balance: 0,
+    price: 35.75,
+    change24h: 2.8,
+  },
+  {
+    name: 'Chainlink',
+    ticker: 'LINK',
+    icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/link.svg',
+    balance: 0,
+    price: 18.5,
+    change24h: 0.5,
+  },
+  {
+    name: 'Polygon',
+    ticker: 'MATIC',
+    icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/matic.svg',
+    balance: 0,
+    price: 0.75,
+    change24h: -0.5,
+  },
 ];
 
 export type Transaction = {

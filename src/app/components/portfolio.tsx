@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import {
   Table,
@@ -11,11 +12,19 @@ import {
 } from '@/components/ui/table';
 import { assets as initialAssets } from '@/lib/data';
 import Image from 'next/image';
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
 
 export function Portfolio() {
-  const totalValue = initialAssets.reduce(
-    (acc, asset) => acc + asset.balance * asset.price,
-    0
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const totalValue = initialAssets
+    .filter(asset => asset.balance > 0)
+    .reduce((acc, asset) => acc + asset.balance * asset.price, 0);
+
+  const filteredAssets = initialAssets.filter(
+    asset =>
+      asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      asset.ticker.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -26,16 +35,28 @@ export function Portfolio() {
       </div>
 
       <Card>
-        <CardHeader>
-          <CardTitle>Total Balance</CardTitle>
-          <CardDescription>
-            <span className="text-3xl font-bold text-foreground">
-              {totalValue.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              })}
-            </span>
-          </CardDescription>
+        <CardHeader className="flex-col items-start gap-4 lg:flex-row lg:items-center">
+          <div className="flex-1">
+            <CardTitle>Total Balance</CardTitle>
+            <CardDescription>
+              <span className="text-3xl font-bold text-foreground">
+                {totalValue.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                })}
+              </span>
+            </CardDescription>
+          </div>
+          <div className="relative w-full lg:w-auto">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search assets..."
+              className="w-full appearance-none bg-background pl-8 shadow-none lg:w-64"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+          </div>
         </CardHeader>
         <CardContent>
           <Table>
@@ -49,7 +70,7 @@ export function Portfolio() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {initialAssets.map(asset => (
+              {filteredAssets.map(asset => (
                 <TableRow key={asset.ticker}>
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -66,11 +87,16 @@ export function Portfolio() {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{asset.balance.toLocaleString()} {asset.ticker}</TableCell>
+                  <TableCell>
+                    {asset.balance > 0
+                      ? `${asset.balance.toLocaleString()} ${asset.ticker}`
+                      : '-'}
+                  </TableCell>
                   <TableCell>
                     {asset.price.toLocaleString('en-US', {
                       style: 'currency',
                       currency: 'USD',
+                      minimumFractionDigits: asset.price < 1 ? 4 : 2,
                     })}
                   </TableCell>
                   <TableCell
