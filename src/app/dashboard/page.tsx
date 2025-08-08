@@ -17,6 +17,7 @@ import { History } from '@/app/components/history';
 import { type Transaction } from '@/lib/data';
 import { NotificationHandler } from '@/app/components/notification-handler';
 import { useToast } from '@/hooks/use-toast';
+import { SupportBot } from '@/app/components/support-bot';
 
 export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history';
 
@@ -81,6 +82,7 @@ export default function BrokerPage() {
         </main>
       </SidebarInset>
       <NotificationHandler />
+      <SupportBot />
     </SidebarProvider>
   );
 }

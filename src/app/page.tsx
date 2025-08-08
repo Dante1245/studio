@@ -4,6 +4,7 @@ import { Features } from '@/app/components/landing/features';
 import { Stats } from '@/app/components/landing/stats';
 import { Reviews } from '@/app/components/landing/reviews';
 import { Footer } from '@/app/components/landing/footer';
+import { SupportBot } from '@/app/components/support-bot';
 
 export default function LandingPage() {
   return (
@@ -16,6 +17,7 @@ export default function LandingPage() {
         <Reviews />
       </main>
       <Footer />
+      <SupportBot />
     </div>
   );
 }
