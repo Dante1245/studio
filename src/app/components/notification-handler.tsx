@@ -22,12 +22,17 @@ const mockLocations = [
 
 export function NotificationHandler() {
   const { toast } = useToast();
+  const [language, setLanguage] = React.useState('en');
 
   React.useEffect(() => {
+    if (typeof window !== 'undefined' && navigator.language) {
+      setLanguage(navigator.language.split('-')[0]);
+    }
+
     const interval = setInterval(async () => {
       const randomCountry = mockLocations[Math.floor(Math.random() * mockLocations.length)];
       
-      const notification = await getPurchaseNotification({ country: randomCountry });
+      const notification = await getPurchaseNotification({ country: randomCountry, language });
 
       if (notification.showNotification && notification.country) {
         toast({
@@ -45,7 +50,7 @@ export function NotificationHandler() {
     }, 8000); // Check every 8 seconds
 
     return () => clearInterval(interval);
-  }, [toast]);
+  }, [toast, language]);
 
   return null;
 }

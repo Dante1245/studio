@@ -12,8 +12,8 @@ export function Footer() {
             </p>
         </div>
         <div className="flex items-center gap-4">
-            <Link href="#" className="text-sm text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">Terms of Service</Link>
-            <Link href="#" className="text-sm text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">Privacy Policy</Link>
+            <Link href="/" className="text-sm text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">Terms of Service</Link>
+            <Link href="/" className="text-sm text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">Privacy Policy</Link>
         </div>
       </div>
     </footer>

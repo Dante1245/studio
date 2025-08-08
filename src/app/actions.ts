@@ -21,6 +21,7 @@ function getRandomAmount(crypto: string) {
 
 const getPurchaseNotificationInput = z.object({
   country: z.string(),
+  language: z.string(),
 });
 
 export async function getPurchaseNotification(input: z.infer<typeof getPurchaseNotificationInput>) {
