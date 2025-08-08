@@ -1,6 +1,7 @@
 'use server';
 
 import { purchaseProbability } from '@/ai/flows/purchase-probability-model';
+import { summarizeNews } from '@/ai/flows/summarize-news-flow';
 import { z } from 'zod';
 
 const mockCrypto = ['BTC', 'ETH', 'SOL', 'DOGE', 'USDT'];
@@ -46,5 +47,15 @@ export async function getPurchaseNotification(input: z.infer<typeof getPurchaseN
   } catch (error) {
     console.error('Error getting purchase notification:', error);
     return { showNotification: false };
+  }
+}
+
+export async function getNewsSummary() {
+  try {
+    const result = await summarizeNews({ topic: 'cryptocurrency' });
+    return result.articles;
+  } catch (error) {
+    console.error('Error getting news summary:', error);
+    return [];
   }
 }

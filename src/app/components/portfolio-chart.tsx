@@ -97,8 +97,8 @@ export function PortfolioChart() {
   const percentageChange = ((totalValue - previousValue) / previousValue) * 100;
 
   return (
-    <Card>
-      <CardHeader className="flex-row items-center justify-between space-y-0 pb-0">
+    <Card className="h-full">
+      <CardHeader className="flex-row items-start justify-between space-y-0 pb-0 sm:items-center">
         <div>
           <CardTitle>Portfolio Performance</CardTitle>
           <CardDescription>

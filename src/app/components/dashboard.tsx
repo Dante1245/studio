@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DollarSign, ArrowUp, ArrowDown, Wallet } from 'lucide-react';
+import { MarketNews } from './market-news';
 import { PortfolioChart } from './portfolio-chart';
 
 export function Dashboard() {
@@ -55,7 +56,14 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <PortfolioChart />
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <PortfolioChart />
+        </div>
+        <div className="lg:col-span-1">
+          <MarketNews />
+        </div>
+      </div>
     </div>
   );
 }
