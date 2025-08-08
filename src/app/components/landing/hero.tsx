@@ -15,7 +15,7 @@ export function Hero() {
             learn the markets, and become a pro trader with our hyper-realistic simulator.
           </p>
           <div className="flex gap-4">
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="shadow-glow-primary">
               <Link href="/signup">Get Started Free</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
