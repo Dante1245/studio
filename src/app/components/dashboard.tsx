@@ -2,29 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DollarSign, ArrowUp, ArrowDown, Wallet } from 'lucide-react';
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartConfig,
-} from '@/components/ui/chart';
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
-
-const chartData = [
-  { month: 'January', portfolio: 186 },
-  { month: 'February', portfolio: 305 },
-  { month: 'March', portfolio: 237 },
-  { month: 'April', portfolio: 273 },
-  { month: 'May', portfolio: 209 },
-  { month: 'June', portfolio: 214 },
-];
-
-const chartConfig = {
-  portfolio: {
-    label: 'Portfolio Value',
-    color: 'hsl(var(--chart-1))',
-  },
-} satisfies ChartConfig;
+import { PortfolioChart } from './portfolio-chart';
 
 export function Dashboard() {
   return (
@@ -77,39 +55,7 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Portfolio Performance</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="h-[250px] w-full">
-            <AreaChart data={chartData}>
-              <defs>
-                <linearGradient id="fillPortfolio" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--color-portfolio)" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="var(--color-portfolio)" stopOpacity={0.1} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              <Area
-                dataKey="portfolio"
-                type="natural"
-                fill="url(#fillPortfolio)"
-                stroke="var(--color-portfolio)"
-                stackId="a"
-              />
-            </AreaChart>
-          </ChartContainer>
-        </CardContent>
-      </Card>
+      <PortfolioChart />
     </div>
   );
 }
