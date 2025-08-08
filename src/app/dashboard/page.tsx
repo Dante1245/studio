@@ -27,8 +27,8 @@ export default function BrokerPage() {
   const { toast } = useToast();
 
   React.useEffect(() => {
-    const bonusAwarded = localStorage.getItem('bonus-awarded');
-    if (!bonusAwarded) {
+    // Check if the effect has already run
+    if (typeof window !== 'undefined' && !localStorage.getItem('bonus-awarded')) {
       const bonusTransaction: Omit<Transaction, 'id' | 'date'> = {
         type: 'Bonus',
         asset: 'USDT',
