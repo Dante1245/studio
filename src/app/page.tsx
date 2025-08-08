@@ -6,7 +6,6 @@ import {
   Sidebar,
   SidebarInset,
   SidebarTrigger,
-  SidebarHeader,
 } from '@/components/ui/sidebar';
 import { AppSidebar } from './components/app-sidebar';
 import { Header } from './components/header';
@@ -17,21 +16,32 @@ import { Withdraw } from './components/withdraw';
 import { History } from './components/history';
 import { type Transaction } from '@/lib/data';
 import { NotificationHandler } from './components/notification-handler';
+import { useToast } from '@/hooks/use-toast';
 
 export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history';
 
 export default function BrokerPage() {
   const [view, setView] = React.useState<View>('dashboard');
-  const [transactions, setTransactions] = React.useState<Transaction[]>([
-    {
-      id: 'tx_bonus',
-      date: new Date().toISOString().split('T')[0],
-      type: 'Bonus',
-      asset: 'USDT',
-      amount: 200,
-      status: 'Completed',
-    },
-  ]);
+  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+  const { toast } = useToast();
+
+  React.useEffect(() => {
+    const bonusAwarded = localStorage.getItem('bonus-awarded');
+    if (!bonusAwarded) {
+      const bonusTransaction: Omit<Transaction, 'id' | 'date'> = {
+        type: 'Bonus',
+        asset: 'USDT',
+        amount: 200,
+        status: 'Completed',
+      };
+      addTransaction(bonusTransaction);
+      toast({
+        title: 'Welcome!',
+        description: 'You have received a $200 sign-up bonus.',
+      });
+      localStorage.setItem('bonus-awarded', 'true');
+    }
+  }, [toast]);
 
   const addTransaction = (transaction: Omit<Transaction, 'id' | 'date'>) => {
     setTransactions(prev => [
