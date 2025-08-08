@@ -2,6 +2,7 @@ import { Header } from '@/app/components/landing/header';
 import { Hero } from '@/app/components/landing/hero';
 import { Features } from '@/app/components/landing/features';
 import { Stats } from '@/app/components/landing/stats';
+import { Reviews } from '@/app/components/landing/reviews';
 import { Footer } from '@/app/components/landing/footer';
 
 export default function LandingPage() {
@@ -12,6 +13,7 @@ export default function LandingPage() {
         <Hero />
         <Stats />
         <Features />
+        <Reviews />
       </main>
       <Footer />
     </div>
