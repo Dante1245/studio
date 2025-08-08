@@ -14,35 +14,41 @@ import { Portfolio } from '@/app/components/portfolio';
 import { Wallet } from '@/app/components/wallet';
 import { Withdraw } from '@/app/components/withdraw';
 import { History } from '@/app/components/history';
+import { Trade } from '@/app/components/trade';
 import { type Transaction } from '@/lib/data';
 import { NotificationHandler } from '@/app/components/notification-handler';
 import { useToast } from '@/hooks/use-toast';
 import { SupportBot } from '@/app/components/support-bot';
+import { useLiveData, type Asset } from '@/hooks/use-live-data';
 
-export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history';
+export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history' | 'trade';
 
 export default function BrokerPage() {
   const [view, setView] = React.useState<View>('dashboard');
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const { toast } = useToast();
+  const { assets, updateBalance } = useLiveData();
 
   React.useEffect(() => {
     // Check if the effect has already run
     if (typeof window !== 'undefined' && !localStorage.getItem('bonus-awarded')) {
-      const bonusTransaction: Omit<Transaction, 'id' | 'date'> = {
+      addTransaction({
         type: 'Bonus',
         asset: 'USDT',
         amount: 200,
         status: 'Completed',
-      };
-      addTransaction(bonusTransaction);
+      });
+      // Directly update the balance since initial state might not have it yet
+      updateBalance('USDT', 200);
+
       toast({
         title: 'Welcome!',
         description: 'You have received a $200 sign-up bonus.',
       });
       localStorage.setItem('bonus-awarded', 'true');
     }
-  }, [toast]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const addTransaction = (transaction: Omit<Transaction, 'id' | 'date'>) => {
     setTransactions(prev => [
@@ -56,13 +62,15 @@ export default function BrokerPage() {
       case 'dashboard':
         return <Dashboard />;
       case 'portfolio':
-        return <Portfolio />;
+        return <Portfolio assets={assets} />;
       case 'wallet':
         return <Wallet />;
       case 'withdraw':
         return <Withdraw addTransaction={addTransaction} />;
       case 'history':
         return <History transactions={transactions} />;
+      case 'trade':
+        return <Trade assets={assets} addTransaction={addTransaction} updateBalance={updateBalance} />;
       default:
         return <Dashboard />;
     }

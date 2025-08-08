@@ -16,7 +16,7 @@ export function Hero() {
           </p>
           <div className="flex gap-4">
             <Button asChild size="lg">
-              <Link href="/dashboard">Get Started Free</Link>
+              <Link href="/signup">Get Started Free</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link href="#features">Learn More</Link>

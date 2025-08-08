@@ -10,18 +10,22 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { assets as initialAssets } from '@/lib/data';
 import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
+import { type Asset } from '@/hooks/use-live-data';
 
-export function Portfolio() {
+interface PortfolioProps {
+  assets: Asset[];
+}
+
+export function Portfolio({ assets }: PortfolioProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
-  const totalValue = initialAssets
+  const totalValue = assets
     .filter(asset => asset.balance > 0)
     .reduce((acc, asset) => acc + asset.balance * asset.price, 0);
 
-  const filteredAssets = initialAssets.filter(
+  const filteredAssets = assets.filter(
     asset =>
       asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       asset.ticker.toLowerCase().includes(searchTerm.toLowerCase())
@@ -89,7 +93,7 @@ export function Portfolio() {
                   </TableCell>
                   <TableCell>
                     {asset.balance > 0
-                      ? `${asset.balance.toLocaleString()} ${asset.ticker}`
+                      ? `${asset.balance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${asset.ticker}`
                       : '-'}
                   </TableCell>
                   <TableCell>

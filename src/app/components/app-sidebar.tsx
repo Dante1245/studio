@@ -1,6 +1,6 @@
 'use client';
 
-import type { View } from '@/app/page';
+import type { View } from '@/app/dashboard/page';
 import {
   SidebarHeader,
   SidebarMenu,
@@ -20,6 +20,7 @@ import {
   Settings,
   User,
   PieChart,
+  CandlestickChart,
 } from 'lucide-react';
 
 interface AppSidebarProps {
@@ -30,6 +31,7 @@ interface AppSidebarProps {
 export function AppSidebar({ activeView, setView }: AppSidebarProps) {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'trade', label: 'Trade', icon: CandlestickChart },
     { id: 'portfolio', label: 'Portfolio', icon: PieChart },
     { id: 'wallet', label: 'Wallet', icon: Wallet },
     { id: 'withdraw', label: 'Withdraw', icon: ArrowLeftRight },

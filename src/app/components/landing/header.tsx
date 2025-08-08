@@ -20,14 +20,17 @@ export function Header() {
             <Link href="#stats" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">
               Stats
             </Link>
+            <Link href="#reviews" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">
+              Reviews
+            </Link>
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
             <Button asChild variant="outline">
-                <Link href="/admin">Admin</Link>
+                <Link href="/signin">Sign In</Link>
             </Button>
             <Button asChild>
-              <Link href="/dashboard">Launch App</Link>
+              <Link href="/signup">Sign Up</Link>
             </Button>
         </div>
       </div>

@@ -19,7 +19,7 @@ export const assets = [
     name: 'Tether',
     ticker: 'USDT',
     icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/usdt.svg',
-    balance: 200,
+    balance: 0,
     price: 1.0,
     change24h: 0.01,
   },
@@ -84,7 +84,7 @@ export const assets = [
 export type Transaction = {
   id: string;
   date: string;
-  type: 'Bonus' | 'Withdrawal' | 'Deposit';
+  type: 'Bonus' | 'Withdrawal' | 'Deposit' | 'Trade';
   asset: string;
   amount: number;
   status: 'Completed' | 'Pending' | 'Processing' | 'Failed';
