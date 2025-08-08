@@ -37,21 +37,21 @@ export function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Best Performer (24h)</CardTitle>
-            <ArrowUp className="h-4 w-4 text-green-500" />
+            <ArrowUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">SOL</div>
-            <p className="text-xs text-green-500">+3.2%</p>
+            <p className="text-xs text-green-600">+3.2%</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Worst Performer (24h)</CardTitle>
-            <ArrowDown className="h-4 w-4 text-red-500" />
+            <ArrowDown className="h-4 w-4 text-red-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">XRP</div>
-            <p className="text-xs text-red-500">-2.1%</p>
+            <p className="text-xs text-red-600">-2.1%</p>
           </CardContent>
         </Card>
       </div>

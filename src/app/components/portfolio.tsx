@@ -104,7 +104,7 @@ export function Portfolio({ assets }: PortfolioProps) {
                     })}
                   </TableCell>
                   <TableCell
-                    className={asset.change24h >= 0 ? 'text-green-500' : 'text-red-500'}
+                    className={asset.change24h >= 0 ? 'text-green-600' : 'text-red-600'}
                   >
                     {asset.change24h.toFixed(2)}%
                   </TableCell>

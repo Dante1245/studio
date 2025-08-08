@@ -29,8 +29,8 @@ export function Hero() {
                 alt="Crypto Dashboard"
                 width={600}
                 height={400}
-                className="rounded-lg shadow-2xl"
-                data-ai-hint="crypto dashboard"
+                className="rounded-lg border-2 border-border shadow-2xl"
+                data-ai-hint="crypto dashboard trading"
             />
         </div>
       </div>
