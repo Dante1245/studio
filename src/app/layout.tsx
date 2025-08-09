@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from '@/components/ui/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'CryptoSim',
+  title: 'MuskXchange',
   description: 'A realistic crypto broker simulation with admin controls.',
 };
 

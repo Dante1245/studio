@@ -12,7 +12,7 @@ export function Header() {
         <div className="mr-4 flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Logo className="h-6 w-6" />
-            <span className="font-bold">CryptoSim</span>
+            <span className="font-bold">MuskXchange</span>
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
             <a href="/dashboard" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">

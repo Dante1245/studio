@@ -51,7 +51,7 @@ export default function SignInPage() {
          <div className="mb-4 flex justify-center">
             <Link href="/" className="flex items-center gap-2 text-foreground">
                 <Logo className="h-8 w-8" />
-                <span className="text-2xl font-bold">CryptoSim</span>
+                <span className="text-2xl font-bold">MuskXchange</span>
             </Link>
         </div>
         <Card>

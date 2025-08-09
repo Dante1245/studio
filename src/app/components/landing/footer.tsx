@@ -8,7 +8,7 @@ export function Footer() {
         <div className="flex items-center gap-2">
             <Logo className="h-6 w-6" />
             <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} CryptoSim. All rights reserved.
+                © {new Date().getFullYear()} MuskXchange. All rights reserved.
             </p>
         </div>
         <div className="flex items-center gap-4">

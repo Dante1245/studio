@@ -45,7 +45,7 @@ export function AppSidebar({ activeView, setView }: AppSidebarProps) {
       <SidebarHeader>
         <div className="flex items-center gap-2">
           <Logo className="size-7 text-accent" />
-          <span className="text-lg font-semibold">CryptoSim</span>
+          <span className="text-lg font-semibold">MuskXchange</span>
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">

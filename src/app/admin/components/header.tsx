@@ -47,7 +47,7 @@ export function Header({ children, searchTerm, setSearchTerm, setView }: HeaderP
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">Admin</p>
-              <p className="text-xs leading-none text-muted-foreground">admin@cryptosim.com</p>
+              <p className="text-xs leading-none text-muted-foreground">admin@muskxchange.com</p>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
