@@ -16,21 +16,25 @@ export function Hero() {
           </p>
           <div className="flex gap-4">
             <Link href="/signup">
-              <Button size="lg" className="shadow-glow-primary">Get Started Free</Button>
+              <Button size="lg" className="shadow-glow-primary">
+                <span>Get Started Free</span>
+              </Button>
             </Link>
             <Link href="#features">
-              <Button variant="outline" size="lg">Learn More</Button>
+              <Button variant="outline" size="lg">
+                <span>Learn More</span>
+              </Button>
             </Link>
           </div>
         </div>
         <div className="flex justify-center">
             <Image 
-                src="https://placehold.co/600x400.png"
-                alt="Crypto dashboard"
+                src="https://i.cnn.net/money/dam/assets/180207102447-elon-musk-spacex-falcon-heavy-780x439.jpg"
+                alt="Elon Musk with SpaceX and Tesla logos"
                 width={600}
                 height={400}
                 className="rounded-lg border-2 border-border shadow-2xl"
-                data-ai-hint="crypto dashboard"
+                data-ai-hint="elon musk"
             />
         </div>
       </div>
