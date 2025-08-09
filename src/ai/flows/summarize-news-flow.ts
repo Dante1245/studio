@@ -40,8 +40,6 @@ const prompt = ai.definePrompt({
   Generate a list of 5 recent, realistic (but fictional) news article summaries about the topic: {{{topic}}}.
   
   For each article, provide a compelling headline, a one to two sentence summary, and a fictional news source.
-  
-  Return a JSON object with a field "articles" containing the list of news summaries.
   `,
 });
 
