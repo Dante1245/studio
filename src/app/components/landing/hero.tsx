@@ -25,12 +25,12 @@ export function Hero() {
         </div>
         <div className="flex justify-center">
             <Image 
-                src="https://placehold.co/600x400.png" 
+                src="https://i.cnn.net/money/dam/assets/180207102447-elon-musk-spacex-falcon-heavy-780x439.jpg"
                 alt="Elon Musk with SpaceX and Tesla logos"
                 width={600}
                 height={400}
                 className="rounded-lg border-2 border-border shadow-2xl"
-                data-ai-hint="elon musk space"
+                data-ai-hint="elon musk"
             />
         </div>
       </div>
