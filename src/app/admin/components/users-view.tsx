@@ -24,12 +24,14 @@ import Image from 'next/image';
 import { users as mockUsers, type User } from '@/lib/admin-data';
 import { useLiveData } from '@/hooks/use-live-data';
 import { EditUserDialog } from './edit-user-dialog';
+import { type Transaction } from '@/lib/data';
 
 interface UsersViewProps {
     searchTerm: string;
+    addTransaction: (transaction: Omit<Transaction, 'id' | 'date'>) => void;
 }
 
-export function UsersView({ searchTerm }: UsersViewProps) {
+export function UsersView({ searchTerm, addTransaction }: UsersViewProps) {
     const { assets, updateBalance } = useLiveData();
     const [users, setUsers] = React.useState<User[]>(mockUsers);
     const [editingUser, setEditingUser] = React.useState<User | null>(null);
@@ -168,6 +170,7 @@ export function UsersView({ searchTerm }: UsersViewProps) {
             isOpen={!!editingUser}
             onClose={() => setEditingUser(null)}
             onSave={handleSaveChanges}
+            onAddTransaction={addTransaction}
         />
     )}
     </>

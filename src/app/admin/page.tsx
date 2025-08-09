@@ -14,6 +14,7 @@ import { UsersView } from './components/users-view';
 import { SupportBot } from '@/app/components/support-bot';
 import { SettingsView } from './components/settings-view';
 import { assets } from '@/lib/data';
+import { type Transaction } from '@/lib/data';
 
 export type View = 'dashboard' | 'users' | 'settings';
 
@@ -35,16 +36,36 @@ export default function AdminPage() {
     return savedAddresses ? JSON.parse(savedAddresses) : initialAddresses;
   });
 
+  const [transactions, setTransactions] = React.useState<Transaction[]>(() => {
+    if (typeof window === 'undefined') {
+      return [];
+    }
+    const savedTransactions = localStorage.getItem('crypto-transactions');
+    return savedTransactions ? JSON.parse(savedTransactions) : [];
+  });
+
+
   React.useEffect(() => {
     localStorage.setItem('main-wallet-addresses', JSON.stringify(walletAddresses));
   }, [walletAddresses]);
+
+  React.useEffect(() => {
+    localStorage.setItem('crypto-transactions', JSON.stringify(transactions));
+  }, [transactions]);
+
+  const addTransaction = (transaction: Omit<Transaction, 'id' | 'date'>) => {
+    setTransactions(prev => [
+      { ...transaction, id: `tx_${Date.now()}`, date: new Date().toISOString().split('T')[0] },
+      ...prev,
+    ]);
+  };
 
   const renderView = () => {
     switch (view) {
       case 'dashboard':
         return <AdminDashboard />;
       case 'users':
-        return <UsersView searchTerm={searchTerm} />;
+        return <UsersView searchTerm={searchTerm} addTransaction={addTransaction} />;
       case 'settings':
         return <SettingsView walletAddresses={walletAddresses} setWalletAddresses={setWalletAddresses} />;
       default:
