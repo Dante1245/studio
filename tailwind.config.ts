@@ -94,7 +94,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       boxShadow: {
-        'glow-primary': '0 0 15px 0px hsl(var(--primary) / 0.5)',
+        'glow-primary': '0 0 20px 0px hsl(var(--primary) / 0.5)',
       }
     },
   },
