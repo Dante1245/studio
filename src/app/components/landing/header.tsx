@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Logo } from '@/app/components/icons';
@@ -27,12 +26,12 @@ export function Header() {
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
-            <Button asChild variant="outline">
-                <Link href="/signin">Sign In</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/signup">Sign Up</Link>
-            </Button>
+          <Button variant="outline" asChild>
+            <Link href="/signin">Sign In</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/signup">Sign Up</Link>
+          </Button>
         </div>
       </div>
     </header>
