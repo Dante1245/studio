@@ -5,6 +5,7 @@ import { Stats } from "@/app/components/landing/stats";
 import { Reviews } from "@/app/components/landing/reviews";
 import { Footer } from "@/app/components/landing/footer";
 import { SupportBot } from "@/app/components/support-bot";
+import { LivePrices } from "@/app/components/landing/live-prices";
 
 export default function LandingPage() {
   return (
@@ -12,6 +13,7 @@ export default function LandingPage() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <LivePrices />
         <Stats />
         <Features />
         <Reviews />

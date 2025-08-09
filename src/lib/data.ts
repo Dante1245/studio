@@ -79,6 +79,30 @@ export const assets = [
     price: 0.75,
     change24h: -0.5,
   },
+    {
+    name: 'Litecoin',
+    ticker: 'LTC',
+    icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/ltc.svg',
+    balance: 0,
+    price: 85.50,
+    change24h: 1.2,
+  },
+  {
+    name: 'Polkadot',
+    ticker: 'DOT',
+    icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/dot.svg',
+    balance: 0,
+    price: 7.50,
+    change24h: -0.9,
+  },
+  {
+    name: 'Shiba Inu',
+    ticker: 'SHIB',
+    icon: 'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/shib.svg',
+    balance: 0,
+    price: 0.000025,
+    change24h: 10.2,
+  },
 ];
 
 export type Transaction = {

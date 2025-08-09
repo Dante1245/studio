@@ -27,6 +27,30 @@ const reviews = [
     avatar: 'https://placehold.co/100x100.png',
     rating: 5,
   },
+  {
+    name: 'Gigafactory Supervisor',
+    title: 'Production Line, Texas',
+    review:
+        'This app is more efficient than our production line. Trading on my break has never been easier. Funding secured.',
+    avatar: 'https://placehold.co/100x100.png',
+    rating: 5,
+  },
+  {
+    name: 'SpaceX Intern',
+    title: 'Rocket Propulsion Dept.',
+    review:
+        'I use my internship stipend to buy crypto here. The interface is intuitive, even for a rocket scientist in training.',
+    avatar: 'https://placehold.co/100x100.png',
+    rating: 5,
+  },
+  {
+    name: 'The Boring Company Operator',
+    title: 'Tunnel Specialist',
+    review:
+        "Trading on this app is anything but boring. It's fast, reliable, and the best way to grow my funds.",
+    avatar: 'https://placehold.co/100x100.png',
+    rating: 5,
+  },
 ];
 
 export function Reviews() {
