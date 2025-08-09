@@ -5,10 +5,3 @@ config();
 // for the dev server. This prevents file-watching loops.
 import '@/ai/flows/purchase-probability-model.ts';
 import '@/ai/flows/summarize-news-flow.ts';
-import { genkit } from 'genkit';
-import { googleAI } from '@genkit-ai/googleai';
-
-// This is a more stable way to load plugins for local development.
-genkit({
-  plugins: [googleAI()],
-});
