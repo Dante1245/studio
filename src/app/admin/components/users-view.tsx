@@ -23,14 +23,16 @@ import {
 import Image from 'next/image';
 import { users as mockUsers, type User } from '@/lib/admin-data';
 import { useLiveData } from '@/hooks/use-live-data';
+import { EditUserDialog } from './edit-user-dialog';
 
 interface UsersViewProps {
     searchTerm: string;
 }
 
 export function UsersView({ searchTerm }: UsersViewProps) {
-    const { assets } = useLiveData();
+    const { assets, updateBalance } = useLiveData();
     const [users, setUsers] = React.useState<User[]>(mockUsers);
+    const [editingUser, setEditingUser] = React.useState<User | null>(null);
     
     // In a real app, this would be a fetch call. For the simulation, we create a user object.
     const liveUser: User = {
@@ -62,8 +64,28 @@ export function UsersView({ searchTerm }: UsersViewProps) {
             return 'bg-gray-100 text-gray-800 border-gray-200';
         }
     };
+    
+    const handleSaveChanges = (updatedUser: User, updatedBalances: Record<string, number>) => {
+        // In a real app, you would make an API call here.
+        // For now, we just log it and update the local state for balances.
+        console.log('Updated user:', updatedUser);
+        console.log('Updated balances:', updatedBalances);
+
+        Object.entries(updatedBalances).forEach(([ticker, newBalance]) => {
+            const currentAsset = assets.find(a => a.ticker === ticker);
+            if (currentAsset) {
+                const diff = newBalance - currentAsset.balance;
+                if (diff !== 0) {
+                    updateBalance(ticker, diff);
+                }
+            }
+        });
+
+        setEditingUser(null);
+    };
 
   return (
+    <>
     <div className="flex flex-col gap-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">User Management</h1>
@@ -127,7 +149,7 @@ export function UsersView({ searchTerm }: UsersViewProps) {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem>Edit User</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setEditingUser(user)}>Edit User</DropdownMenuItem>
                             <DropdownMenuItem className="text-red-600">Delete User</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -139,5 +161,15 @@ export function UsersView({ searchTerm }: UsersViewProps) {
         </CardContent>
       </Card>
     </div>
+    {editingUser && (
+        <EditUserDialog
+            user={editingUser}
+            assets={assets}
+            isOpen={!!editingUser}
+            onClose={() => setEditingUser(null)}
+            onSave={handleSaveChanges}
+        />
+    )}
+    </>
   );
 }
