@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -27,6 +28,15 @@ const passwordFormSchema = z.object({
 
 export function Profile() {
     const { toast } = useToast();
+    const [avatar, setAvatar] = React.useState('https://placehold.co/100x100');
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+    React.useEffect(() => {
+        const savedAvatar = localStorage.getItem('user-avatar');
+        if (savedAvatar) {
+            setAvatar(savedAvatar);
+        }
+    }, []);
 
     const profileForm = useForm<z.infer<typeof profileFormSchema>>({
         resolver: zodResolver(profileFormSchema),
@@ -62,6 +72,23 @@ export function Profile() {
         passwordForm.reset();
     }
 
+    const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const newAvatarUrl = reader.result as string;
+                setAvatar(newAvatarUrl);
+                localStorage.setItem('user-avatar', newAvatarUrl);
+                toast({
+                    title: 'Avatar Updated',
+                    description: 'Your new profile picture has been set.',
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     return (
         <div className="flex flex-col gap-8">
             <div>
@@ -74,12 +101,19 @@ export function Profile() {
                     <Card>
                         <CardContent className="flex flex-col items-center pt-6 text-center">
                             <Avatar className="mb-4 h-24 w-24">
-                                <AvatarImage src="https://placehold.co/100x100" alt="@user" data-ai-hint="person" />
+                                <AvatarImage src={avatar} alt="@user" data-ai-hint="person" />
                                 <AvatarFallback>U</AvatarFallback>
                             </Avatar>
                             <h2 className="text-xl font-semibold">Live User</h2>
                             <p className="text-sm text-muted-foreground">user@example.com</p>
-                            <Button variant="outline" className="mt-4">
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                onChange={handleAvatarChange}
+                                accept="image/*"
+                                className="hidden"
+                            />
+                            <Button variant="outline" className="mt-4" onClick={() => fileInputRef.current?.click()}>
                                 Change Avatar
                             </Button>
                         </CardContent>
