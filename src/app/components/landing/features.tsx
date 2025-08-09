@@ -1,21 +1,21 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { DollarSign, BarChart, Zap } from 'lucide-react';
+import { Rocket, BrainCircuit, Zap } from 'lucide-react';
 
 const features = [
     {
-        icon: <BarChart className="h-8 w-8 text-primary" />,
-        title: 'Real-Time Market Data',
-        description: 'Trade with up-to-the-minute prices from major exchanges. Our platform provides live data.'
+        icon: <Rocket className="h-8 w-8 text-primary" />,
+        title: 'Interplanetary Markets',
+        description: 'Trade assets across multiple planets. Our Starlink integration ensures zero-latency transactions.'
     },
     {
-        icon: <DollarSign className="h-8 w-8 text-primary" />,
-        title: 'Secure Portfolio Management',
-        description: 'Start with a secure balance and learn to manage your portfolio with our professional tools.'
+        icon: <BrainCircuit className="h-8 w-8 text-primary" />,
+        title: 'Neural-Linked Trading',
+        description: 'Connect your mind directly to the market. Execute trades at the speed of thought with our Neuralink API.'
     },
     {
         icon: <Zap className="h-8 w-8 text-primary" />,
-        title: 'Advanced Trading Tools',
-        description: 'Utilize professional-grade charting tools, indicators, and order types to hone your skills.'
+        title: 'Electrify Your Portfolio',
+        description: 'Leverage our advanced AI to optimize your holdings and power your financial future. Fully autonomous.'
     }
 ]
 
@@ -24,10 +24,10 @@ export function Features() {
     <section id="features" className="container space-y-6 bg-slate-50/50 py-8 dark:bg-transparent md:py-12 lg:py-24">
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
         <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl">
-          Why Choose CryptoSim?
+          First Principles of Future Finance
         </h2>
         <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-          We provide the most feature-rich and secure environment for crypto traders.
+          We build from the ground up. The most advanced technology for the most ambitious goals.
         </p>
       </div>
       <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">

@@ -4,26 +4,26 @@ import { Star } from 'lucide-react';
 
 const reviews = [
   {
-    name: 'Alex Johnson',
-    title: 'Pro Trader',
+    name: 'Mars Colonist #7',
+    title: 'Red Planet Resident',
     review:
-      'CryptoSim has been an invaluable tool for testing my strategies without risking capital. The real-time data is spot on!',
+      'I use this platform to manage my Dogecoin from my habitat on Mars. The latency is literally stellar. Much wow.',
     avatar: 'https://placehold.co/100x100.png',
     rating: 5,
   },
   {
-    name: 'Samantha Lee',
-    title: 'Beginner Investor',
+    name: 'Starship Engineer',
+    title: 'Launch Operations',
     review:
-      'As someone new to crypto, this platform was a lifesaver. I learned so much in a safe environment. Highly recommend!',
+      'The only platform that lets me trade between engine tests. The UI is cleaner than our launchpad. 10/10.',
     avatar: 'https://placehold.co/100x100.png',
     rating: 5,
   },
   {
-    name: 'Michael Chen',
-    title: 'Data Analyst',
+    name: 'Neuralink Beta Tester',
+    title: 'Mind-Machine Interface',
     review:
-      'The advanced charting tools and indicators are top-notch. It feels like using a professional-grade trading terminal.',
+      'Executing trades with just a thought is a game-changer. The future is weird, but my portfolio has never been better.',
     avatar: 'https://placehold.co/100x100.png',
     rating: 5,
   },
@@ -34,10 +34,10 @@ export function Reviews() {
     <section id="reviews" className="container space-y-8 py-8 md:py-12 lg:py-24">
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
         <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl">
-          What Our Traders Say
+          Straight from the Starship Troopers
         </h2>
         <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-          Hear from traders who have sharpened their skills with CryptoSim.
+          Hear from the pioneers building the future, one trade at a time.
         </p>
       </div>
       <div className="mx-auto grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

@@ -1,8 +1,8 @@
 export function Stats() {
     const stats = [
-        { value: '$10B+', label: 'Trading Volume' },
-        { value: '100+', label: 'Assets Supported' },
-        { value: '50k+', label: 'Active Traders' },
+        { value: '420k+', label: 'Transactions/Second' },
+        { value: '100+', label: 'Supported Assets' },
+        { value: 'To The Moon', label: 'Next Destination' },
         { value: '99.9%', label: 'Uptime' }
     ]
 

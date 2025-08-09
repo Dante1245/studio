@@ -8,21 +8,21 @@ export function Hero() {
       <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
         <div className="flex flex-col items-start gap-6">
           <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-5xl lg:text-6xl">
-            The Ultimate Crypto Trading Platform
+            Finance the Future. Trade Beyond Earth.
           </h1>
           <p className="max-w-[700px] text-lg text-muted-foreground">
-            Experience the future of cryptocurrency trading. Access real-time markets, manage your portfolio,
-            and execute trades with our advanced, hyper-realistic platform.
+            From Earth to Mars, our platform provides the financial OS for the future of humanity.
+            Execute trades with interplanetary speed and neural-link precision. The future is now.
           </p>
           <div className="flex gap-4">
             <Link href="/signup">
                 <Button size="lg" className="shadow-glow-primary">
-                    Get Started
+                    Join the Mission
                 </Button>
             </Link>
             <Link href="#features">
                 <Button variant="outline" size="lg">
-                    Learn More
+                    View Tech Specs
                 </Button>
             </Link>
           </div>
