@@ -39,6 +39,13 @@ export default function BrokerPage() {
   const { toast } = useToast();
   const { assets, updateBalance } = useLiveData();
 
+  const addTransaction = React.useCallback((transaction: Omit<Transaction, 'id' | 'date'>) => {
+    setTransactions(prev => [
+      { ...transaction, id: `tx_${Date.now()}`, date: new Date().toISOString().split('T')[0] },
+      ...prev,
+    ]);
+  }, []);
+
   React.useEffect(() => {
     localStorage.setItem('crypto-transactions', JSON.stringify(transactions));
   }, [transactions]);
@@ -61,15 +68,8 @@ export default function BrokerPage() {
       });
       localStorage.setItem('bonus-awarded', 'true');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [addTransaction, updateBalance, toast]);
   
-  const addTransaction = (transaction: Omit<Transaction, 'id' | 'date'>) => {
-    setTransactions(prev => [
-      { ...transaction, id: `tx_${Date.now()}`, date: new Date().toISOString().split('T')[0] },
-      ...prev,
-    ]);
-  };
 
   const renderView = () => {
     switch (view) {

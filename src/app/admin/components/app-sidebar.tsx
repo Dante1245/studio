@@ -60,7 +60,7 @@ export function AppSidebar({ activeView, setView }: AppSidebarProps) {
         <Separator className="my-1" />
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Logout" asChild>
+             <SidebarMenuButton tooltip="Logout" asChild>
               <Link href="/">
                 <LogOut />
                 <span>Logout</span>
