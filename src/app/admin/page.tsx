@@ -10,6 +10,7 @@ import {
 import { AppSidebar } from './components/app-sidebar';
 import { Header } from './components/header';
 import { AdminDashboard } from './components/admin-dashboard';
+import { UsersView } from './components/users-view';
 
 export type View = 'dashboard' | 'users' | 'settings';
 
@@ -20,7 +21,8 @@ export default function AdminPage() {
     switch (view) {
       case 'dashboard':
         return <AdminDashboard />;
-      // Add other views here later
+      case 'users':
+        return <UsersView />;
       default:
         return <AdminDashboard />;
     }
