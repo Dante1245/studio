@@ -28,10 +28,14 @@ export function Header() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <Link href="/signin">
-            <Button variant="outline">Sign In</Button>
+            <Button variant="outline">
+              Sign In
+            </Button>
           </Link>
           <Link href="/signup">
-            <Button>Sign Up</Button>
+            <Button>
+              Sign Up
+            </Button>
           </Link>
         </div>
       </div>

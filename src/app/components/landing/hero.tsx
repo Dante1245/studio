@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,10 +16,10 @@ export function Hero() {
             learn the markets, and become a pro trader with our hyper-realistic simulator.
           </p>
           <div className="flex gap-4">
-            <Link href="/signup" passHref>
+            <Link href="/signup">
               <Button size="lg" className="shadow-glow-primary">Get Started Free</Button>
             </Link>
-            <Link href="#features" passHref>
+            <Link href="#features">
               <Button variant="outline" size="lg">Learn More</Button>
             </Link>
           </div>
