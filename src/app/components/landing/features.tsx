@@ -5,12 +5,12 @@ const features = [
     {
         icon: <BarChart className="h-8 w-8 text-primary" />,
         title: 'Real-Time Market Data',
-        description: 'Trade with up-to-the-minute prices from major exchanges. Our simulation is as real as it gets.'
+        description: 'Trade with up-to-the-minute prices from major exchanges. Our platform provides live data.'
     },
     {
         icon: <DollarSign className="h-8 w-8 text-primary" />,
-        title: 'Risk-Free Virtual Portfolio',
-        description: 'Start with a virtual balance and learn to manage your portfolio without risking real money.'
+        title: 'Secure Portfolio Management',
+        description: 'Start with a secure balance and learn to manage your portfolio with our professional tools.'
     },
     {
         icon: <Zap className="h-8 w-8 text-primary" />,
@@ -27,7 +27,7 @@ export function Features() {
           Why Choose CryptoSim?
         </h2>
         <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-          We provide the most realistic and feature-rich environment for aspiring crypto traders.
+          We provide the most feature-rich and secure environment for crypto traders.
         </p>
       </div>
       <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">

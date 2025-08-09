@@ -72,7 +72,7 @@ export function AdminDashboard() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Overview</CardTitle>
+          <CardTitle>Platform Overview</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">

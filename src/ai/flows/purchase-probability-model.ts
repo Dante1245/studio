@@ -2,9 +2,9 @@
 'use server';
 
 /**
- * @fileOverview This file defines a Genkit flow for determining the probability of a user receiving a mock purchase notification.
+ * @fileOverview This file defines a Genkit flow for determining the probability of a user receiving a purchase notification.
  *
- * - purchaseProbability - A function that determines if a user should receive a mock purchase notification.
+ * - purchaseProbability - A function that determines if a user should receive a purchase notification.
  * - PurchaseProbabilityInput - The input type for the purchaseProbability function.
  * - PurchaseProbabilityOutput - The return type for the purchaseProbability function.
  */
@@ -22,7 +22,7 @@ export type PurchaseProbabilityInput = z.infer<typeof PurchaseProbabilityInputSc
 const PurchaseProbabilityOutputSchema = z.object({
   shouldSendNotification: z
     .boolean()
-    .describe('Whether a mock purchase notification should be sent to the user.'),
+    .describe('Whether a purchase notification should be sent to the user.'),
 });
 export type PurchaseProbabilityOutput = z.infer<typeof PurchaseProbabilityOutputSchema>;
 
@@ -35,7 +35,7 @@ const prompt = ai.definePrompt({
   model: googleAI.model('gemini-1.5-flash'),
   input: {schema: PurchaseProbabilityInputSchema},
   output: {schema: PurchaseProbabilityOutputSchema},
-  prompt: `You are a marketing expert. Your goal is to determine whether to send a mock purchase notification to a user based on their country and if they are a new user.
+  prompt: `You are a marketing expert. Your goal is to determine whether to send a purchase notification to a user based on their country and if they are a new user.
 
   Only send a notification if the user meets the following criteria:
   1. The user is a new user (isNewUser is true).

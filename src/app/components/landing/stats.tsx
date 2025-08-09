@@ -1,6 +1,6 @@
 export function Stats() {
     const stats = [
-        { value: '$10B+', label: 'Simulated Volume' },
+        { value: '$10B+', label: 'Trading Volume' },
         { value: '100+', label: 'Assets Supported' },
         { value: '50k+', label: 'Active Traders' },
         { value: '99.9%', label: 'Uptime' }
