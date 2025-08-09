@@ -16,14 +16,14 @@ export function Hero() {
           </p>
           <div className="flex gap-4">
             <Link href="/signup">
-              <Button size="lg" className="shadow-glow-primary">
-                Get Started Free
-              </Button>
+                <Button size="lg" className="shadow-glow-primary">
+                    Get Started Free
+                </Button>
             </Link>
             <Link href="#features">
-              <Button variant="outline" size="lg">
-                Learn More
-              </Button>
+                <Button variant="outline" size="lg">
+                    Learn More
+                </Button>
             </Link>
           </div>
         </div>
