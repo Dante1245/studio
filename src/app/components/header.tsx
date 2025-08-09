@@ -21,7 +21,7 @@ export function Header({ children }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="md:hidden">{children}</div>
-      <div className="hidden w-full flex-1 md:block">
+      <div className="w-full flex-1">
         <form>
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
