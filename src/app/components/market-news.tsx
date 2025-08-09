@@ -17,9 +17,15 @@ export function MarketNews() {
       try {
         setLoading(true);
         const newsArticles = await getNewsSummary();
-        setArticles(newsArticles);
+        if (Array.isArray(newsArticles)) {
+          setArticles(newsArticles);
+        } else {
+          setArticles([]);
+          console.error('Received non-array response for news summary');
+        }
       } catch (error) {
         console.error('Failed to load news summary', error);
+        setArticles([]);
       } finally {
         setLoading(false);
       }
