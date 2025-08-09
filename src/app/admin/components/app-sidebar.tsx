@@ -16,7 +16,6 @@ import {
   Users,
   Settings,
   LogOut,
-  User,
 } from 'lucide-react';
 
 interface AppSidebarProps {
@@ -58,12 +57,6 @@ export function AppSidebar({ activeView, setView }: AppSidebarProps) {
       <SidebarFooter>
         <Separator className="my-1" />
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Profile">
-              <User />
-              <span>Admin</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton tooltip="Logout">
               <LogOut />
