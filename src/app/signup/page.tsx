@@ -1,6 +1,7 @@
 
 'use client';
 
+import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -30,6 +31,7 @@ const formSchema = z.object({
 
 export default function SignUpPage() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = React.useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,8 +43,11 @@ export default function SignUpPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    setIsLoading(true);
     // Simulate sign-up and redirect
-    router.push('/dashboard');
+    setTimeout(() => {
+        router.push('/dashboard');
+    }, 1000);
   }
 
   return (
@@ -101,8 +106,8 @@ export default function SignUpPage() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
-                  Create Account
+                <Button type="submit" className="w-full" loading={isLoading}>
+                  {isLoading ? 'Creating Account...' : 'Create Account'}
                 </Button>
               </form>
             </Form>

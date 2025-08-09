@@ -59,6 +59,8 @@ export function Trade({ assets, addTransaction, updateBalance }: TradeProps) {
     },
   });
 
+  const { formState } = form;
+
   const fromAssetTicker = useWatch({ control: form.control, name: 'fromAsset' });
   const toAssetTicker = useWatch({ control: form.control, name: 'toAsset' });
   const fromAmount = useWatch({ control: form.control, name: 'fromAmount' });
@@ -161,8 +163,8 @@ export function Trade({ assets, addTransaction, updateBalance }: TradeProps) {
                 </FormControl>
               </FormItem>
               
-              <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? 'Executing...' : 'Execute Trade'}
+              <Button type="submit" className="w-full" loading={formState.isSubmitting}>
+                {formState.isSubmitting ? 'Executing...' : 'Execute Trade'}
               </Button>
             </form>
           </Form>

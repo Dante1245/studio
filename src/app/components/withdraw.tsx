@@ -51,6 +51,8 @@ export function Withdraw({ assets, addTransaction, updateBalance }: WithdrawProp
     },
   });
 
+  const { formState } = form;
+
   const selectedAssetTicker = useWatch({ control: form.control, name: 'asset' });
   const selectedAsset = assets.find(a => a.ticker === selectedAssetTicker);
   const totalBalance = assets.reduce((acc, asset) => acc + (asset.balance * asset.price), 0);
@@ -155,8 +157,8 @@ export function Withdraw({ assets, addTransaction, updateBalance }: WithdrawProp
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full sm:w-auto" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? 'Submitting...' : 'Submit Withdrawal Request'}
+              <Button type="submit" className="w-full sm:w-auto" loading={formState.isSubmitting}>
+                {formState.isSubmitting ? 'Submitting...' : 'Submit Withdrawal Request'}
               </Button>
             </form>
           </Form>

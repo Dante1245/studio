@@ -1,6 +1,7 @@
 
 'use client';
 
+import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -26,6 +27,7 @@ const formSchema = z.object({
 
 export default function SignInPage() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = React.useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,8 +38,11 @@ export default function SignInPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    setIsLoading(true);
     // Simulate sign-in
-    router.push('/dashboard');
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 1000);
   }
 
   return (
@@ -83,8 +88,8 @@ export default function SignInPage() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
-                  Sign In
+                <Button type="submit" className="w-full" loading={isLoading}>
+                  {isLoading ? 'Signing In...' : 'Sign In'}
                 </Button>
               </form>
             </Form>
