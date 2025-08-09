@@ -62,7 +62,7 @@ export function SettingsView({ walletAddresses, setWalletAddresses }: SettingsVi
                                 width={100}
                                 height={100}
                                 data-ai-hint="qr code"
-                                key={addresses[asset.ticker] || ''}
+                                key={addresses[asset.ticker] || asset.ticker}
                             />
                             <Input 
                                 id={`wallet-address-${asset.ticker}`} 
