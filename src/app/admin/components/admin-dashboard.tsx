@@ -11,7 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import * as React from 'react';
-import { users as mockUsers, type User } from '@/lib/admin-data';
+import { type User } from '@/lib/admin-data';
 import { useLiveData } from '@/hooks/use-live-data';
 
 export function AdminDashboard() {

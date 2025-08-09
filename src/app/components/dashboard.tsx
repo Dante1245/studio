@@ -1,11 +1,22 @@
 'use client';
 
+import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DollarSign, ArrowUp, ArrowDown, Wallet } from 'lucide-react';
 import { MarketNews } from './market-news';
 import { PortfolioChart } from './portfolio-chart';
+import { useLiveData } from '@/hooks/use-live-data';
 
 export function Dashboard() {
+  const { assets } = useLiveData();
+  
+  const portfolioValue = assets.reduce((acc, asset) => acc + asset.balance * asset.price, 0);
+  const usdtBalance = assets.find(asset => asset.ticker === 'USDT')?.balance || 0;
+
+  const sortedByChange = [...assets].sort((a, b) => a.change24h - b.change24h);
+  const bestPerformer = sortedByChange[sortedByChange.length - 1];
+  const worstPerformer = sortedByChange[0];
+
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -20,7 +31,9 @@ export function Dashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$200.00</div>
+            <div className="text-2xl font-bold">
+              {portfolioValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            </div>
             <p className="text-xs text-muted-foreground">+0.0% from last month</p>
           </CardContent>
         </Card>
@@ -30,7 +43,9 @@ export function Dashboard() {
             <Wallet className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$200.00</div>
+            <div className="text-2xl font-bold">
+              {usdtBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            </div>
             <p className="text-xs text-muted-foreground">USDT Balance</p>
           </CardContent>
         </Card>
@@ -40,8 +55,10 @@ export function Dashboard() {
             <ArrowUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">SOL</div>
-            <p className="text-xs text-green-600">+3.2%</p>
+            <div className="text-2xl font-bold">{bestPerformer?.ticker}</div>
+            <p className={`text-xs ${bestPerformer?.change24h >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {bestPerformer?.change24h.toFixed(1)}%
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -50,8 +67,10 @@ export function Dashboard() {
             <ArrowDown className="h-4 w-4 text-red-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">XRP</div>
-            <p className="text-xs text-red-600">-2.1%</p>
+            <div className="text-2xl font-bold">{worstPerformer?.ticker}</div>
+            <p className={`text-xs ${worstPerformer?.change24h >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+               {worstPerformer?.change24h.toFixed(1)}%
+            </p>
           </CardContent>
         </Card>
       </div>

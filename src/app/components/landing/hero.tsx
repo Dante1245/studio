@@ -29,12 +29,12 @@ export function Hero() {
         </div>
         <div className="flex justify-center">
             <Image 
-                src="https://i.cnn.net/money/dam/assets/180207102447-elon-musk-spacex-falcon-heavy-780x439.jpg"
-                alt="Elon Musk with SpaceX and Tesla logos"
+                src="https://cdn.jsdelivr.net/gh/radix-ui/icons@radix-ui/website@0.3.0/public/front/git-dark.svg"
+                alt="Futuristic Git visualization"
                 width={600}
                 height={400}
                 className="rounded-lg border-2 border-border shadow-2xl"
-                data-ai-hint="elon musk"
+                data-ai-hint="futuristic tech"
             />
         </div>
       </div>

@@ -40,15 +40,17 @@ export default function BrokerPage() {
   const { assets, updateBalance } = useLiveData();
 
   const addTransaction = React.useCallback((transaction: Omit<Transaction, 'id' | 'date'>) => {
-    setTransactions(prev => [
-      { ...transaction, id: `tx_${Date.now()}`, date: new Date().toISOString().split('T')[0] },
-      ...prev,
-    ]);
+    setTransactions(prev => {
+      const newTransactions = [
+        { ...transaction, id: `tx_${Date.now()}`, date: new Date().toISOString().split('T')[0] },
+        ...prev,
+      ];
+      if(typeof window !== 'undefined') {
+        localStorage.setItem('crypto-transactions', JSON.stringify(newTransactions));
+      }
+      return newTransactions;
+    });
   }, []);
-
-  React.useEffect(() => {
-    localStorage.setItem('crypto-transactions', JSON.stringify(transactions));
-  }, [transactions]);
 
   React.useEffect(() => {
     // Check if the effect has already run

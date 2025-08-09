@@ -23,14 +23,17 @@ export function Wallet() {
   const [selectedAsset, setSelectedAsset] = useState('BTC');
 
   useEffect(() => {
-     const handleStorageChange = () => {
+     const storedAddresses = localStorage.getItem('main-wallet-addresses');
+      if (storedAddresses) {
+        setWalletAddresses(JSON.parse(storedAddresses));
+      }
+    const handleStorageChange = () => {
       const storedAddresses = localStorage.getItem('main-wallet-addresses');
       if (storedAddresses) {
         setWalletAddresses(JSON.parse(storedAddresses));
       }
     };
     
-    handleStorageChange(); // Initial check
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);

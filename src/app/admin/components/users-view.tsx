@@ -123,6 +123,7 @@ export function UsersView({ searchTerm, addTransaction }: UsersViewProps) {
                             width={40}
                             height={40}
                             className="rounded-full"
+                            data-ai-hint="person"
                         />
                         <div>
                             <div className="font-medium">{user.name}</div>
