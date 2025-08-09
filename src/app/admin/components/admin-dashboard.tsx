@@ -12,11 +12,13 @@ import {
 } from '@/components/ui/table';
 import * as React from 'react';
 import { users as mockUsers, type User } from '@/lib/admin-data';
+import { useLiveData } from '@/hooks/use-live-data';
 
 export function AdminDashboard() {
-  const [users, setUsers] = React.useState<User[]>(mockUsers);
-  const totalUsers = users.length;
-  const totalVolume = users.reduce((acc, user) => acc + user.balance, 0);
+  const { assets } = useLiveData();
+  // In a real app, you'd fetch users. For this simulation, we have one user.
+  const totalUsers = 1;
+  const totalVolume = assets.reduce((acc, asset) => acc + asset.balance * asset.price, 0);
 
   return (
     <div className="flex flex-col gap-8">
@@ -33,7 +35,7 @@ export function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalUsers}</div>
-            <p className="text-xs text-muted-foreground">+2 since last month</p>
+            <p className="text-xs text-muted-foreground">Live user count</p>
           </CardContent>
         </Card>
         <Card>
@@ -42,8 +44,8 @@ export function AdminDashboard() {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">No activity yet</p>
+            <div className="text-2xl font-bold">1</div>
+            <p className="text-xs text-muted-foreground">Live activity</p>
           </CardContent>
         </Card>
         <Card>

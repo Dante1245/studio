@@ -22,15 +22,30 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
 import { users as mockUsers, type User } from '@/lib/admin-data';
+import { useLiveData } from '@/hooks/use-live-data';
 
 interface UsersViewProps {
     searchTerm: string;
 }
 
 export function UsersView({ searchTerm }: UsersViewProps) {
+    const { assets } = useLiveData();
     const [users, setUsers] = React.useState<User[]>(mockUsers);
+    
+    // In a real app, this would be a fetch call. For the simulation, we create a user object.
+    const liveUser: User = {
+        id: 'usr_live_001',
+        name: 'Live User',
+        email: 'user@example.com',
+        avatar: 'https://placehold.co/100x100.png',
+        joined: new Date().toISOString().split('T')[0],
+        balance: assets.reduce((acc, asset) => acc + asset.balance * asset.price, 0),
+        status: 'Active',
+    };
 
-    const filteredUsers = users.filter(user => 
+    const allUsers = [...users, liveUser];
+
+    const filteredUsers = allUsers.filter(user => 
         user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -59,7 +74,7 @@ export function UsersView({ searchTerm }: UsersViewProps) {
         <CardHeader>
           <CardTitle>All Users</CardTitle>
           <CardDescription>
-            A list of all users in the system. Found {filteredUsers.length} of {users.length} users.
+            A list of all users in the system. Found {filteredUsers.length} of {allUsers.length} users.
           </CardDescription>
         </CardHeader>
         <CardContent>
