@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { View } from '@/app/dashboard/page';
@@ -22,6 +23,7 @@ import {
   PieChart,
   CandlestickChart,
 } from 'lucide-react';
+import Link from 'next/link';
 
 interface AppSidebarProps {
   activeView: View;
@@ -66,21 +68,23 @@ export function AppSidebar({ activeView, setView }: AppSidebarProps) {
         <Separator className="my-1" />
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Profile" onClick={() => setView('profile')}>
+            <SidebarMenuButton tooltip="Profile" onClick={() => setView('profile')} isActive={activeView === 'profile'}>
               <User />
               <span>Profile</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Settings">
+            <SidebarMenuButton tooltip="Settings" onClick={() => setView('settings')} isActive={activeView === 'settings'}>
               <Settings />
               <span>Settings</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Logout">
-              <LogOut />
-              <span>Logout</span>
+            <SidebarMenuButton tooltip="Logout" asChild>
+              <Link href="/">
+                <LogOut />
+                <span>Logout</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -79,7 +80,7 @@ export default function AdminPage() {
         <AppSidebar activeView={view} setView={setView} />
       </Sidebar>
       <SidebarInset className="flex flex-col">
-        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm}>
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} setView={setView}>
           <SidebarTrigger />
         </Header>
         <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">

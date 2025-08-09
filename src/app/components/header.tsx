@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -12,12 +13,15 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import type { View } from '@/app/dashboard/page';
+import Link from 'next/link';
 
 interface HeaderProps {
   children: React.ReactNode;
+  setView: (view: View) => void;
 }
 
-export function Header({ children }: HeaderProps) {
+export function Header({ children, setView }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="md:hidden">{children}</div>
@@ -51,10 +55,12 @@ export function Header({ children }: HeaderProps) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setView('profile')}>Profile</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setView('settings')}>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Log out</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/">Log out</Link>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

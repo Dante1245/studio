@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { View } from '@/app/admin/page';
@@ -17,6 +18,7 @@ import {
   Settings,
   LogOut,
 } from 'lucide-react';
+import Link from 'next/link';
 
 interface AppSidebarProps {
   activeView: View;
@@ -58,9 +60,11 @@ export function AppSidebar({ activeView, setView }: AppSidebarProps) {
         <Separator className="my-1" />
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Logout">
-              <LogOut />
-              <span>Logout</span>
+            <SidebarMenuButton tooltip="Logout" asChild>
+              <Link href="/">
+                <LogOut />
+                <span>Logout</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

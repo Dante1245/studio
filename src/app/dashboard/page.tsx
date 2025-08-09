@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -21,8 +22,9 @@ import { NotificationHandler } from '@/app/components/notification-handler';
 import { useToast } from '@/hooks/use-toast';
 import { SupportBot } from '@/app/components/support-bot';
 import { useLiveData, type Asset } from '@/hooks/use-live-data';
+import { Settings } from '@/app/components/settings';
 
-export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history' | 'trade' | 'profile';
+export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history' | 'trade' | 'profile' | 'settings';
 
 export default function BrokerPage() {
   const [view, setView] = React.useState<View>('dashboard');
@@ -85,6 +87,8 @@ export default function BrokerPage() {
         return <Trade assets={assets} addTransaction={addTransaction} updateBalance={updateBalance} />;
       case 'profile':
         return <Profile />;
+      case 'settings':
+        return <Settings />;
       default:
         return <Dashboard />;
     }
@@ -96,7 +100,7 @@ export default function BrokerPage() {
         <AppSidebar activeView={view} setView={setView} />
       </Sidebar>
       <SidebarInset className="flex flex-col">
-        <Header>
+        <Header setView={setView}>
           <SidebarTrigger />
         </Header>
         <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">

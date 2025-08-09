@@ -1,18 +1,21 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Search, User } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import Link from 'next/link';
 
 interface HeaderProps {
   children: React.ReactNode;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  setView: (view: 'dashboard' | 'users' | 'settings') => void;
 }
 
-export function Header({ children, searchTerm, setSearchTerm }: HeaderProps) {
+export function Header({ children, searchTerm, setSearchTerm, setView }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="md:hidden">{children}</div>
@@ -48,9 +51,11 @@ export function Header({ children, searchTerm, setSearchTerm }: HeaderProps) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setView('settings')}>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Log out</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/">Log out</Link>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -16,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Logo } from '../components/icons';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   email: z.string().email('Please enter a valid email address.'),
@@ -27,6 +29,7 @@ const formSchema = z.object({
 });
 
 export default function SignUpPage() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,7 +41,8 @@ export default function SignUpPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    // TODO: Implement actual sign-up logic
+    // Simulate sign-up and redirect
+    router.push('/dashboard');
   }
 
   return (
