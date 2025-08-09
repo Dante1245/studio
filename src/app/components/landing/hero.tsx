@@ -26,11 +26,11 @@ export function Hero() {
         <div className="flex justify-center">
             <Image 
                 src="https://placehold.co/600x400.png" 
-                alt="Crypto Dashboard"
+                alt="Elon Musk with SpaceX and Tesla logos"
                 width={600}
                 height={400}
                 className="rounded-lg border-2 border-border shadow-2xl"
-                data-ai-hint="crypto dashboard trading"
+                data-ai-hint="elon musk space"
             />
         </div>
       </div>
