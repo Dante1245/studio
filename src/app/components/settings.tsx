@@ -7,9 +7,11 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { useTheme } from '@/components/ui/theme-provider';
 
 export function Settings() {
     const { toast } = useToast();
+    const { theme, setTheme } = useTheme();
 
     return (
         <div className="flex flex-col gap-8">
@@ -53,7 +55,11 @@ export function Settings() {
                             <Label htmlFor="dark-mode" className="text-base">Dark Mode</Label>
                             <p className="text-sm text-muted-foreground">Toggle between light and dark themes.</p>
                         </div>
-                        <Switch id="dark-mode" defaultChecked disabled />
+                        <Switch 
+                            id="dark-mode"
+                            checked={theme === 'dark'}
+                            onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                        />
                     </div>
                 </CardContent>
             </Card>
