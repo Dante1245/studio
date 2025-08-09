@@ -7,18 +7,16 @@ import { Button } from '@/components/ui/button';
 import { Copy, Check } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { assets as initialAssets } from '@/lib/data';
+import { Label } from '@/components/ui/label';
 
-// This component now needs to get the wallet address from its parent,
-// but since we can't easily pass props from the admin page to here,
-// we will use localStorage as a temporary bridge for this simulation.
 export function Wallet() {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
   const [walletAddress, setWalletAddress] = useState('0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B');
+  const [selectedAsset, setSelectedAsset] = useState('BTC');
 
-  // A real app would use a global state manager (like Redux or Zustand)
-  // or a server-side fetch to get this value. For this demo, we'll
-  // listen for changes that the admin panel might make.
   useEffect(() => {
      const handleStorageChange = () => {
       const storedAddress = localStorage.getItem('main-wallet-address');
@@ -58,11 +56,24 @@ export function Wallet() {
         <CardHeader>
           <CardTitle>Your Deposit Address</CardTitle>
           <CardDescription>
-            Only send USDT (ERC20) to this address. Sending any other asset may result in
-            permanent loss.
+            Select an asset and send it to the address below. Sending any other asset may result in permanent loss.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="asset-select">Select Asset to Deposit</Label>
+            <Select value={selectedAsset} onValueChange={setSelectedAsset}>
+              <SelectTrigger id="asset-select">
+                <SelectValue placeholder="Select an asset" />
+              </SelectTrigger>
+              <SelectContent>
+                {initialAssets.map(asset => (
+                  <SelectItem key={asset.ticker} value={asset.ticker}>{asset.name} ({asset.ticker})</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="flex flex-col items-center gap-4 rounded-lg border bg-card p-6">
             <Image
               src={qrCodeUrl}

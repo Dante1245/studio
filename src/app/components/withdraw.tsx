@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -23,22 +23,25 @@ import {
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { type Transaction } from '@/lib/data';
+import { type Asset } from '@/hooks/use-live-data';
 
 const formSchema = z.object({
   amount: z.coerce
     .number({ invalid_type_error: 'Please enter a valid amount.' })
-    .positive('Amount must be positive.')
-    .max(200, "You can't withdraw more than your $200 bonus."),
+    .positive('Amount must be positive.'),
   asset: z.string().min(1, 'Please select an asset.'),
   address: z.string().min(10, 'Please enter a valid wallet address.'),
 });
 
 interface WithdrawProps {
+  assets: Asset[];
   addTransaction: (transaction: Omit<Transaction, 'id' | 'date'>) => void;
+  updateBalance: (ticker: string, amount: number) => void;
 }
 
-export function Withdraw({ addTransaction }: WithdrawProps) {
+export function Withdraw({ assets, addTransaction, updateBalance }: WithdrawProps) {
   const { toast } = useToast();
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,7 +51,23 @@ export function Withdraw({ addTransaction }: WithdrawProps) {
     },
   });
 
+  const selectedAssetTicker = useWatch({ control: form.control, name: 'asset' });
+  const selectedAsset = assets.find(a => a.ticker === selectedAssetTicker);
+  const totalBalance = assets.reduce((acc, asset) => acc + (asset.balance * asset.price), 0);
+  
+  const customFormSchema = formSchema.refine(data => {
+    const asset = assets.find(a => a.ticker === data.asset);
+    return !asset || data.amount <= asset.balance;
+  }, {
+    message: "You can't withdraw more than your balance.",
+    path: ['amount'],
+  });
+
+  form.trigger(); // Reruns validation when selected asset changes
+
   function onSubmit(values: z.infer<typeof formSchema>) {
+    updateBalance(values.asset, -values.amount);
+    
     addTransaction({
       type: 'Withdrawal',
       asset: values.asset,
@@ -78,7 +97,7 @@ export function Withdraw({ addTransaction }: WithdrawProps) {
         <CardHeader>
           <CardTitle>Withdrawal Form</CardTitle>
           <CardDescription>
-            Your current available balance for withdrawal is $200.00 USDT.
+            Your current available balance for withdrawal is {totalBalance.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -102,7 +121,7 @@ export function Withdraw({ addTransaction }: WithdrawProps) {
                   control={form.control}
                   name="asset"
                   render={({ field }) => (
-                    <FormItem className="w-full sm:w-40">
+                    <FormItem className="w-full sm:w-48">
                       <FormLabel>Asset</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
@@ -111,7 +130,11 @@ export function Withdraw({ addTransaction }: WithdrawProps) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="USDT">USDT</SelectItem>
+                          {assets.filter(a => a.balance > 0).map(asset => (
+                            <SelectItem key={asset.ticker} value={asset.ticker}>
+                              {asset.ticker} ({asset.balance.toFixed(4)})
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -124,7 +147,7 @@ export function Withdraw({ addTransaction }: WithdrawProps) {
                 name="address"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Withdrawal Address (ERC20)</FormLabel>
+                    <FormLabel>Withdrawal Address ({selectedAsset?.name || '...'} Network)</FormLabel>
                     <FormControl>
                       <Input placeholder="0x..." {...field} />
                     </FormControl>

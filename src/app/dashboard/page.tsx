@@ -77,7 +77,7 @@ export default function BrokerPage() {
       case 'wallet':
         return <Wallet />;
       case 'withdraw':
-        return <Withdraw addTransaction={addTransaction} />;
+        return <Withdraw assets={assets} addTransaction={addTransaction} updateBalance={updateBalance} />;
       case 'history':
         return <History transactions={transactions} />;
       case 'trade':
