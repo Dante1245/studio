@@ -30,6 +30,7 @@ export function SupportBot() {
   const { toast } = useToast();
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [input, setInput] = React.useState('');
+  const didClick = React.useRef(false);
 
   // Effect to set initial position in useEffect to avoid SSR issues with window object
   React.useEffect(() => {
@@ -44,65 +45,45 @@ export function SupportBot() {
     return () => window.removeEventListener('resize', setInitialPosition);
   }, []);
 
-  const handleDragStart = (
-    e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>
+  const handlePointerDown = (
+    e: React.PointerEvent<HTMLButtonElement>
   ) => {
+    didClick.current = true;
     setIsDragging(true);
-    const event = 'touches' in e ? e.touches[0] : e;
     if (botRef.current) {
       const rect = botRef.current.getBoundingClientRect();
       setDragOffset({
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
       });
+      botRef.current.setPointerCapture(e.pointerId);
     }
-    // Prevent text selection while dragging
-    e.preventDefault();
   };
 
-  const handleDrag = (e: MouseEvent | TouchEvent) => {
-    if (!isDragging) return;
-    const event = 'touches' in e ? e.touches[0] : e;
-    let newX = event.clientX - dragOffset.x;
-    let newY = event.clientY - dragOffset.y;
-    
-    // Clamp position to be within viewport
-    newX = Math.max(0, Math.min(newX, window.innerWidth - (botRef.current?.offsetWidth || 0)));
-    newY = Math.max(0, Math.min(newY, window.innerHeight - (botRef.current?.offsetHeight || 0)));
-
-    setPosition({ x: newX, y: newY });
-  };
-
-  const handleDragEnd = () => {
-    setIsDragging(false);
-  };
-
-  React.useEffect(() => {
+  const handlePointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
     if (isDragging) {
-      window.addEventListener('mousemove', handleDrag);
-      window.addEventListener('touchmove', handleDrag);
-      window.addEventListener('mouseup', handleDragEnd);
-      window.addEventListener('touchend', handleDragEnd);
-    } else {
-      window.removeEventListener('mousemove', handleDrag);
-      window.removeEventListener('touchmove', handleDrag);
-      window.removeEventListener('mouseup', handleDragEnd);
-      window.removeEventListener('touchend', handleDragEnd);
+      didClick.current = false;
+      let newX = e.clientX - dragOffset.x;
+      let newY = e.clientY - dragOffset.y;
+      
+      // Clamp position to be within viewport
+      newX = Math.max(0, Math.min(newX, window.innerWidth - (botRef.current?.offsetWidth || 0)));
+      newY = Math.max(0, Math.min(newY, window.innerHeight - (botRef.current?.offsetHeight || 0)));
+
+      setPosition({ x: newX, y: newY });
     }
+  };
 
-    return () => {
-      window.removeEventListener('mousemove', handleDrag);
-      window.removeEventListener('touchmove', handleDrag);
-      window.removeEventListener('mouseup', handleDragEnd);
-      window.removeEventListener('touchend', handleDragEnd);
-    };
-  }, [isDragging, dragOffset]);
-
-  const handleBotClick = () => {
-    if (!isDragging) { // Only open dialog if not dragging
+  const handlePointerUp = (e: React.PointerEvent<HTMLButtonElement>) => {
+    setIsDragging(false);
+    if (botRef.current) {
+      botRef.current.releasePointerCapture(e.pointerId);
+    }
+    if(didClick.current){
       setIsDialogOpen(true);
     }
   };
+
 
   const handleSendMessage = () => {
     if (input.trim() === '') return;
@@ -123,9 +104,9 @@ export function SupportBot() {
     <>
       <Button
         ref={botRef}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-        onClick={handleBotClick}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
         variant="default"
         size="icon"
         className={cn(
@@ -136,6 +117,7 @@ export function SupportBot() {
           left: `${position.x}px`,
           top: `${position.y}px`,
           transform: isDragging ? 'scale(1.05)' : 'scale(1)',
+          touchAction: 'none',
         }}
       >
         <Bot className="h-8 w-8" />

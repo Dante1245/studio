@@ -8,9 +8,11 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 
 interface HeaderProps {
   children: React.ReactNode;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
 }
 
-export function Header({ children }: HeaderProps) {
+export function Header({ children, searchTerm, setSearchTerm }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="md:hidden">{children}</div>
@@ -22,6 +24,8 @@ export function Header({ children }: HeaderProps) {
               type="search"
               placeholder="Search users..."
               className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </form>

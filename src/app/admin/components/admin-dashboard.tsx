@@ -10,8 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import * as React from 'react';
+import { users as mockUsers, type User } from '@/lib/admin-data';
 
 export function AdminDashboard() {
+  const [users, setUsers] = React.useState<User[]>(mockUsers);
+  const totalUsers = users.length;
+  const totalVolume = users.reduce((acc, user) => acc + user.balance, 0);
+
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -26,8 +32,8 @@ export function AdminDashboard() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">No users yet</p>
+            <div className="text-2xl font-bold">{totalUsers}</div>
+            <p className="text-xs text-muted-foreground">+2 since last month</p>
           </CardContent>
         </Card>
         <Card>
@@ -46,8 +52,8 @@ export function AdminDashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$0.00</div>
-            <p className="text-xs text-muted-foreground">No transactions yet</p>
+            <div className="text-2xl font-bold">{totalVolume.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
+            <p className="text-xs text-muted-foreground">Total user balances</p>
           </CardContent>
         </Card>
         <Card>

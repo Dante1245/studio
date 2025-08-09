@@ -23,8 +23,17 @@ import {
 import Image from 'next/image';
 import { users as mockUsers, type User } from '@/lib/admin-data';
 
-export function UsersView() {
+interface UsersViewProps {
+    searchTerm: string;
+}
+
+export function UsersView({ searchTerm }: UsersViewProps) {
     const [users, setUsers] = React.useState<User[]>(mockUsers);
+
+    const filteredUsers = users.filter(user => 
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const getStatusVariant = (status: User['status']) => {
         switch (status) {
@@ -50,7 +59,7 @@ export function UsersView() {
         <CardHeader>
           <CardTitle>All Users</CardTitle>
           <CardDescription>
-            A list of all users in the system.
+            A list of all users in the system. Found {filteredUsers.length} of {users.length} users.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -65,7 +74,7 @@ export function UsersView() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {users.map(user => (
+              {filteredUsers.map(user => (
                 <TableRow key={user.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">

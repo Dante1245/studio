@@ -25,9 +25,20 @@ export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history'
 
 export default function BrokerPage() {
   const [view, setView] = React.useState<View>('dashboard');
-  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
+  const [transactions, setTransactions] = React.useState<Transaction[]>(() => {
+    if (typeof window === 'undefined') {
+      return [];
+    }
+    const savedTransactions = localStorage.getItem('crypto-transactions');
+    return savedTransactions ? JSON.parse(savedTransactions) : [];
+  });
+
   const { toast } = useToast();
   const { assets, updateBalance } = useLiveData();
+
+  React.useEffect(() => {
+    localStorage.setItem('crypto-transactions', JSON.stringify(transactions));
+  }, [transactions]);
 
   React.useEffect(() => {
     // Check if the effect has already run

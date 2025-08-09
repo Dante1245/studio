@@ -11,18 +11,20 @@ import { AppSidebar } from './components/app-sidebar';
 import { Header } from './components/header';
 import { AdminDashboard } from './components/admin-dashboard';
 import { UsersView } from './components/users-view';
+import { SupportBot } from '@/app/components/support-bot';
 
 export type View = 'dashboard' | 'users' | 'settings';
 
 export default function AdminPage() {
   const [view, setView] = React.useState<View>('dashboard');
+  const [searchTerm, setSearchTerm] = React.useState('');
 
   const renderView = () => {
     switch (view) {
       case 'dashboard':
         return <AdminDashboard />;
       case 'users':
-        return <UsersView />;
+        return <UsersView searchTerm={searchTerm} />;
       default:
         return <AdminDashboard />;
     }
@@ -34,13 +36,14 @@ export default function AdminPage() {
         <AppSidebar activeView={view} setView={setView} />
       </Sidebar>
       <SidebarInset className="flex flex-col">
-        <Header>
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm}>
           <SidebarTrigger />
         </Header>
         <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
           {renderView()}
         </main>
       </SidebarInset>
+      <SupportBot />
     </SidebarProvider>
   );
 }
