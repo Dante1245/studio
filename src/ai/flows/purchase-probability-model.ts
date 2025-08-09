@@ -35,10 +35,16 @@ const prompt = ai.definePrompt({
   model: googleAI.model('gemini-1.5-flash'),
   input: {schema: PurchaseProbabilityInputSchema},
   output: {schema: PurchaseProbabilityOutputSchema},
-  prompt: `You are a marketing expert. Only send a notification if the user is from a rich country (USA, Switzerland, UAE, Norway, Germany) and is a new user.
+  prompt: `You are a marketing expert. Your goal is to determine whether to send a mock purchase notification to a user based on their country and if they are a new user.
 
-  Country: {{{country}}}
-  Is new user: {{{isNewUser}}}
+  Only send a notification if the user meets the following criteria:
+  1. The user is a new user (isNewUser is true).
+  2. The user is from one of the following affluent countries: USA, Switzerland, UAE, Norway, Germany.
+
+  Evaluate the following user data and set 'shouldSendNotification' to true only if both conditions are met.
+
+  User Country: {{{country}}}
+  Is New User: {{{isNewUser}}}
   `,
 });
 
