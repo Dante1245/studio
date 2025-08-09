@@ -11,17 +11,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { assets as initialAssets } from '@/lib/data';
 import { Label } from '@/components/ui/label';
 
+const defaultAddresses = initialAssets.reduce((acc, asset) => {
+    acc[asset.ticker] = `0x...${asset.ticker.toLowerCase()}DefaultAddress...`;
+    return acc;
+}, {} as Record<string, string>);
+
 export function Wallet() {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
-  const [walletAddress, setWalletAddress] = useState('0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B');
+  const [walletAddresses, setWalletAddresses] = useState<Record<string, string>>(defaultAddresses);
   const [selectedAsset, setSelectedAsset] = useState('BTC');
 
   useEffect(() => {
      const handleStorageChange = () => {
-      const storedAddress = localStorage.getItem('main-wallet-address');
-      if (storedAddress) {
-        setWalletAddress(storedAddress);
+      const storedAddresses = localStorage.getItem('main-wallet-addresses');
+      if (storedAddresses) {
+        setWalletAddresses(JSON.parse(storedAddresses));
       }
     };
     
@@ -30,9 +35,11 @@ export function Wallet() {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
+  const currentAddress = walletAddresses[selectedAsset] || '';
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(walletAddress).then(() => {
+    if (!currentAddress) return;
+    navigator.clipboard.writeText(currentAddress).then(() => {
       setCopied(true);
       toast({
         description: "Address copied to clipboard!",
@@ -41,7 +48,7 @@ export function Wallet() {
     });
   };
 
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${walletAddress}`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${currentAddress}`;
 
   return (
     <div className="flex flex-col gap-8">
@@ -68,7 +75,12 @@ export function Wallet() {
               </SelectTrigger>
               <SelectContent>
                 {initialAssets.map(asset => (
-                  <SelectItem key={asset.ticker} value={asset.ticker}>{asset.name} ({asset.ticker})</SelectItem>
+                  <SelectItem key={asset.ticker} value={asset.ticker}>
+                    <div className="flex items-center gap-2">
+                        <Image src={asset.icon} alt={asset.name} width={20} height={20} />
+                        <span>{asset.name} ({asset.ticker})</span>
+                    </div>
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -81,16 +93,17 @@ export function Wallet() {
               width={150}
               height={150}
               data-ai-hint="qr code"
-              key={walletAddress} // Re-render image when address changes
+              key={currentAddress} // Re-render image when address changes
             />
             <div className="relative w-full">
-              <Input readOnly value={walletAddress} className="pr-12 text-center md:text-left"/>
+              <Input readOnly value={currentAddress} className="pr-12 text-center md:text-left"/>
               <Button
                 variant="ghost"
                 size="icon"
                 className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2"
                 onClick={handleCopy}
                 aria-label="Copy address"
+                disabled={!currentAddress}
               >
                 {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
               </Button>

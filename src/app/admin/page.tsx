@@ -13,13 +13,31 @@ import { AdminDashboard } from './components/admin-dashboard';
 import { UsersView } from './components/users-view';
 import { SupportBot } from '@/app/components/support-bot';
 import { SettingsView } from './components/settings-view';
+import { assets } from '@/lib/data';
 
 export type View = 'dashboard' | 'users' | 'settings';
+
+const initialAddresses = assets.reduce((acc, asset) => {
+    // Placeholder addresses, replace with real defaults if necessary
+    acc[asset.ticker] = `0x...${asset.ticker.toLowerCase()}DefaultAddress...`;
+    return acc;
+}, {} as Record<string, string>);
+
 
 export default function AdminPage() {
   const [view, setView] = React.useState<View>('dashboard');
   const [searchTerm, setSearchTerm] = React.useState('');
-  const [walletAddress, setWalletAddress] = React.useState('0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B');
+  const [walletAddresses, setWalletAddresses] = React.useState<Record<string, string>>(() => {
+    if (typeof window === 'undefined') {
+        return initialAddresses;
+    }
+    const savedAddresses = localStorage.getItem('main-wallet-addresses');
+    return savedAddresses ? JSON.parse(savedAddresses) : initialAddresses;
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem('main-wallet-addresses', JSON.stringify(walletAddresses));
+  }, [walletAddresses]);
 
   const renderView = () => {
     switch (view) {
@@ -28,7 +46,7 @@ export default function AdminPage() {
       case 'users':
         return <UsersView searchTerm={searchTerm} />;
       case 'settings':
-        return <SettingsView walletAddress={walletAddress} setWalletAddress={setWalletAddress} />;
+        return <SettingsView walletAddresses={walletAddresses} setWalletAddresses={setWalletAddresses} />;
       default:
         return <AdminDashboard />;
     }
