@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -9,6 +10,7 @@
  */
 
 import { ai } from '@/ai/genkit';
+import { googleAI } from '@genkit-ai/googleai';
 import { z } from 'genkit';
 
 const NewsArticleSchema = z.object({
@@ -33,6 +35,7 @@ export async function summarizeNews(input: NewsSummaryInput): Promise<NewsSummar
 
 const prompt = ai.definePrompt({
   name: 'summarizeNewsPrompt',
+  model: googleAI.model('gemini-1.5-flash'),
   input: { schema: NewsSummaryInputSchema },
   output: { schema: NewsSummaryOutputSchema },
   prompt: `You are a financial news correspondent for a major publication.

@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -10,6 +11,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import {googleAI} from '@genkit-ai/googleai';
 
 const PurchaseProbabilityInputSchema = z.object({
   country: z.string().describe('The country of the user.'),
@@ -30,6 +32,7 @@ export async function purchaseProbability(input: PurchaseProbabilityInput): Prom
 
 const prompt = ai.definePrompt({
   name: 'purchaseProbabilityPrompt',
+  model: googleAI.model('gemini-1.5-flash'),
   input: {schema: PurchaseProbabilityInputSchema},
   output: {schema: PurchaseProbabilityOutputSchema},
   prompt: `You are a marketing expert. Only send a notification if the user is from a rich country (USA, Switzerland, UAE, Norway, Germany) and is a new user.
