@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -8,10 +8,30 @@ import { Copy, Check } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 
+// This component now needs to get the wallet address from its parent,
+// but since we can't easily pass props from the admin page to here,
+// we will use localStorage as a temporary bridge for this simulation.
 export function Wallet() {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
-  const walletAddress = '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'; // Placeholder address
+  const [walletAddress, setWalletAddress] = useState('0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B');
+
+  // A real app would use a global state manager (like Redux or Zustand)
+  // or a server-side fetch to get this value. For this demo, we'll
+  // listen for changes that the admin panel might make.
+  useEffect(() => {
+     const handleStorageChange = () => {
+      const storedAddress = localStorage.getItem('main-wallet-address');
+      if (storedAddress) {
+        setWalletAddress(storedAddress);
+      }
+    };
+    
+    handleStorageChange(); // Initial check
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(walletAddress).then(() => {
@@ -22,6 +42,8 @@ export function Wallet() {
       setTimeout(() => setCopied(false), 2000);
     });
   };
+
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${walletAddress}`;
 
   return (
     <div className="flex flex-col gap-8">
@@ -43,11 +65,12 @@ export function Wallet() {
         <CardContent className="space-y-6">
           <div className="flex flex-col items-center gap-4 rounded-lg border bg-card p-6">
             <Image
-              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B"
+              src={qrCodeUrl}
               alt="QR Code"
               width={150}
               height={150}
               data-ai-hint="qr code"
+              key={walletAddress} // Re-render image when address changes
             />
             <div className="relative w-full">
               <Input readOnly value={walletAddress} className="pr-12 text-center md:text-left"/>

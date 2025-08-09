@@ -12,12 +12,14 @@ import { Header } from './components/header';
 import { AdminDashboard } from './components/admin-dashboard';
 import { UsersView } from './components/users-view';
 import { SupportBot } from '@/app/components/support-bot';
+import { SettingsView } from './components/settings-view';
 
 export type View = 'dashboard' | 'users' | 'settings';
 
 export default function AdminPage() {
   const [view, setView] = React.useState<View>('dashboard');
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [walletAddress, setWalletAddress] = React.useState('0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B');
 
   const renderView = () => {
     switch (view) {
@@ -25,6 +27,8 @@ export default function AdminPage() {
         return <AdminDashboard />;
       case 'users':
         return <UsersView searchTerm={searchTerm} />;
+      case 'settings':
+        return <SettingsView walletAddress={walletAddress} setWalletAddress={setWalletAddress} />;
       default:
         return <AdminDashboard />;
     }

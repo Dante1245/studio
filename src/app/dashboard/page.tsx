@@ -60,7 +60,7 @@ export default function BrokerPage() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  
   const addTransaction = (transaction: Omit<Transaction, 'id' | 'date'>) => {
     setTransactions(prev => [
       { ...transaction, id: `tx_${Date.now()}`, date: new Date().toISOString().split('T')[0] },
