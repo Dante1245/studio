@@ -1,9 +1,11 @@
+
 import Image from 'next/image';
 
 interface NotificationToastProps {
   country: string;
   crypto: string;
   amount: string;
+  name: string;
 }
 
 function getCountryFlagEmoji(country: string) {
@@ -28,14 +30,14 @@ function getCountryFlagEmoji(country: string) {
     return String.fromCodePoint(...codePoints);
 }
 
-export function NotificationToast({ country, crypto, amount }: NotificationToastProps) {
+export function NotificationToast({ country, crypto, amount, name }: NotificationToastProps) {
   return (
     <div className="flex items-center gap-3">
       <div className="text-2xl">{getCountryFlagEmoji(country)}</div>
       <div>
         <p className="font-medium text-foreground">New Purchase</p>
         <p className="text-sm text-muted-foreground">
-          Someone from {country} just bought {amount} {crypto}.
+          {name} from {country} just bought {amount} {crypto}.
         </p>
       </div>
     </div>

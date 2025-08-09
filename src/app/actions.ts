@@ -1,3 +1,4 @@
+
 'use server';
 
 import { purchaseProbability } from '@/ai/flows/purchase-probability-model';
@@ -5,6 +6,10 @@ import { summarizeNews } from '@/ai/flows/summarize-news-flow';
 import { z } from 'zod';
 
 const mockCrypto = ['BTC', 'ETH', 'SOL', 'DOGE', 'USDT'];
+const mockNames = [
+  'Alex', 'Ben', 'Chris', 'David', 'Eva', 'Frank', 'Grace', 'Henry', 'Isabella', 'Jack',
+  'Kate', 'Liam', 'Mia', 'Noah', 'Olivia', 'Paul', 'Quinn', 'Rachel', 'Sam', 'Tina'
+];
 
 function getRandomAmount(crypto: string) {
   switch (crypto) {
@@ -36,11 +41,13 @@ export async function getPurchaseNotification(input: z.infer<typeof getPurchaseN
     if (result.shouldSendNotification) {
       const crypto = mockCrypto[Math.floor(Math.random() * mockCrypto.length)];
       const amount = getRandomAmount(crypto);
+      const name = mockNames[Math.floor(Math.random() * mockNames.length)];
       return {
         showNotification: true,
         country: validatedInput.country,
         crypto,
         amount,
+        name,
       };
     }
 

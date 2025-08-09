@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -34,7 +35,7 @@ export function NotificationHandler() {
       
       const notification = await getPurchaseNotification({ country: randomCountry, language });
 
-      if (notification.showNotification && notification.country) {
+      if (notification.showNotification && notification.country && notification.name) {
         toast({
           // @ts-ignore
           description: (
@@ -42,6 +43,7 @@ export function NotificationHandler() {
               country={notification.country}
               crypto={notification.crypto}
               amount={notification.amount}
+              name={notification.name}
             />
           ),
           duration: 5000,
