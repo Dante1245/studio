@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { useTheme } from '@/components/ui/theme-provider';
+import { useTheme } from 'next-themes';
 
 export function Settings() {
     const { toast } = useToast();

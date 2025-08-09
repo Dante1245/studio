@@ -29,12 +29,12 @@ export function Hero() {
         </div>
         <div className="flex justify-center">
             <Image 
-                src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/btc.svg"
-                alt="Crypto trading platform interface"
-                width={400}
+                src="https://i.cnn.net/money/dam/assets/180207102447-elon-musk-spacex-falcon-heavy-780x439.jpg"
+                alt="Elon Musk with SpaceX and Tesla logos"
+                width={600}
                 height={400}
-                className="rounded-lg"
-                data-ai-hint="crypto trading"
+                className="rounded-lg border-2 border-border shadow-2xl"
+                data-ai-hint="elon musk"
             />
         </div>
       </div>
