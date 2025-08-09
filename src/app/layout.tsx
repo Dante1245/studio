@@ -27,6 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <div className="animated-gradient fixed inset-0 -z-10" />
           {children}
           <Toaster />
         </ThemeProvider>
