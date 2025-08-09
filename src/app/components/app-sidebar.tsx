@@ -66,7 +66,7 @@ export function AppSidebar({ activeView, setView }: AppSidebarProps) {
         <Separator className="my-1" />
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Profile">
+            <SidebarMenuButton tooltip="Profile" onClick={() => setView('profile')}>
               <User />
               <span>Profile</span>
             </SidebarMenuButton>

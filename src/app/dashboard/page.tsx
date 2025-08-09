@@ -15,13 +15,14 @@ import { Wallet } from '@/app/components/wallet';
 import { Withdraw } from '@/app/components/withdraw';
 import { History } from '@/app/components/history';
 import { Trade } from '@/app/components/trade';
+import { Profile } from '@/app/components/profile';
 import { type Transaction } from '@/lib/data';
 import { NotificationHandler } from '@/app/components/notification-handler';
 import { useToast } from '@/hooks/use-toast';
 import { SupportBot } from '@/app/components/support-bot';
 import { useLiveData, type Asset } from '@/hooks/use-live-data';
 
-export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history' | 'trade';
+export type View = 'dashboard' | 'portfolio' | 'wallet' | 'withdraw' | 'history' | 'trade' | 'profile';
 
 export default function BrokerPage() {
   const [view, setView] = React.useState<View>('dashboard');
@@ -82,6 +83,8 @@ export default function BrokerPage() {
         return <History transactions={transactions} />;
       case 'trade':
         return <Trade assets={assets} addTransaction={addTransaction} updateBalance={updateBalance} />;
+      case 'profile':
+        return <Profile />;
       default:
         return <Dashboard />;
     }
