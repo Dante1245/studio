@@ -29,11 +29,11 @@ export function Hero() {
         </div>
         <div className="flex justify-center">
             <Image 
-                src="https://placehold.co/600x400.png"
+                src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@1a63530be6e374711a8554f31b17e4cb92c258d5/svg/color/btc.svg"
                 alt="Crypto trading simulator interface"
-                width={600}
+                width={400}
                 height={400}
-                className="rounded-lg border-2 border-border shadow-2xl"
+                className="rounded-lg"
                 data-ai-hint="crypto trading"
             />
         </div>
