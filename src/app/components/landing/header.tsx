@@ -15,15 +15,15 @@ export function Header() {
             <span className="font-bold">CryptoSim</span>
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
-            <Link href="/dashboard" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">
+            <a href="/dashboard" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">
               Dashboard
-            </Link>
-            <Link href="#features" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">
+            </a>
+            <a href="#features" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">
               Features
-            </Link>
-            <Link href="#reviews" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">
+            </a>
+            <a href="#reviews" className="text-muted-foreground/60 transition-colors hover:text-muted-foreground/80">
               Reviews
-            </Link>
+            </a>
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">

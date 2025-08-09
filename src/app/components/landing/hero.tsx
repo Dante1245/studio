@@ -15,12 +15,12 @@ export function Hero() {
             learn the markets, and become a pro trader with our hyper-realistic simulator.
           </p>
           <div className="flex gap-4">
-            <Button asChild size="lg" className="shadow-glow-primary">
-              <Link href="/signup">Get Started Free</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="#features">Learn More</Link>
-            </Button>
+            <Link href="/signup" passHref>
+              <Button size="lg" className="shadow-glow-primary">Get Started Free</Button>
+            </Link>
+            <Link href="#features" passHref>
+              <Button variant="outline" size="lg">Learn More</Button>
+            </Link>
           </div>
         </div>
         <div className="flex justify-center">
